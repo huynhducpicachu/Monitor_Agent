@@ -2,12 +2,12 @@
 
 using namespace std;
 
-struct urlFirefoxInfo
+struct _URL_FIREFOX_INFO
 {
-	char url;
+	int id;
+	string url;
 	char title;
-	string accessTime;
-	int visitCount;
+	string visitTime;
 };
 
 void collectFirefoxHistory();

@@ -114,6 +114,19 @@ bool isGoogleSearchLink(const char* url)
     return false;
 }
 
+bool isYahooSearchLink(const char* url)
+{
+    const char* youtubeSearchDomains[] = { "https://www.google.com/search?q" }; // 
+
+    for (const char* domain : youtubeSearchDomains) {
+        if (strstr(url, domain) != nullptr) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 // Function to process Chrome history
 void processChromeHistory() {
     wstring chromeHistoryPath = getChromeHistoryPath();
@@ -160,9 +173,9 @@ void processChromeHistory() {
         int typeCount = sqlite3_column_int(stmt, 4);
         int64_t visitTimeInt64 = sqlite3_column_int64(stmt, 5);
         int isHidden = sqlite3_column_int(stmt, 6);
-        cout << "RawTime: " << visitTimeInt64;
+        //cout << "RawTime: " << visitTimeInt64;
         time_t visitTime = static_cast<time_t>(visitTimeInt64/1000000 - 11644473600LL);
-        cout << "RawTime2: " << visitTimeInt64;
+        //cout << "RawTime2: " << visitTimeInt64;
         char buffer[80];
         struct tm timeInfo;
 
@@ -180,7 +193,6 @@ void processChromeHistory() {
                 outFile << "Email Link - ID: " << id << "; URL: " << url << "; TITLE: " << title << "; Visit Time : " << buffer << std::endl;
                 outFile << "//==============================================================================" << endl;
             }
-
             else
             {
                 if (isYoutube) {
@@ -199,8 +211,8 @@ void processChromeHistory() {
                 else
                 {
                     if (isGoogleSearch) {
-                        cout    << "SEARCH GOOGLE TITLE: " << title << std::endl;
-                        outFile << "SEARCH GOOGLE TITLE: " << title << std::endl;
+                        cout   << "ID: " << id << "SEARCH GOOGLE TITLE: " << title << "URL: " << url << "; Visit Time : " << buffer << std::endl;
+                        outFile << "ID: " << id << "SEARCH GOOGLE TITLE: " << title << "URL: " << url << "; Visit Time : " << buffer << std::endl;
                         outFile << "-----------------------------------------------------------------------------------------------" << endl;
                     }
                     else {
@@ -208,10 +220,7 @@ void processChromeHistory() {
                         outFile << "ID: " << id << "; URL: " << url << "; TITLE: " << title << "; Visit Time : " << buffer << std::endl;
                     }
                 }
- 
-                
             }
-            
         }
         else {
             std::cerr << "Error converting time." << std::endl;

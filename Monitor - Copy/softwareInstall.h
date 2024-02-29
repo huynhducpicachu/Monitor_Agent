@@ -1,0 +1,1 @@
+void ExportInstalledProgramsToFile(const std::string& fileName);

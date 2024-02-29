@@ -1,7 +1,7 @@
-﻿  main2.cpp
+﻿  chromeUrl.cpp
   Generating code
-  2 of 3076 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+  1 of 3223 functions (<0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    66 functions had inline decision re-evaluated but remain unchanged
+    67 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Monitor.vcxproj -> C:\Users\HuynhDuc\Desktop\PROJECT_CPLUS\Monitor\Release\Monitor.exe

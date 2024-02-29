@@ -39,13 +39,7 @@
     <ClCompile Include="chromeUrl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="softwareInstall.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="processList.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="main2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

